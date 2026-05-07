@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RAG Chatbot</title>
+        <style>
+            body{
+                font-family: Arial, sans-serif;
+                background: linear-gradient(120deg, #eef2ff, #f8fafc);
+
+            }
+            .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            animation: fadeIn 0.7s ease-in-out;
+            }
+            @keyframes fadeIn{
+                from {
+                    opacity: 0; transform: translate(15px);
+                }
+                to {opacity: 0; transform: translate(0);}
+
+            }
+            h2 {text-align: center;
+                color: #1e293b;    
+            }
+            input,button { width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;  }
+            button {background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+                 
+            }
+            button:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+        .msg {
+            color: green;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .answer {
+            background: #eef2ff;
+            padding: 18px;
+            margin-top: 20px;
+            border-left: 5px solid #2563eb;
+            border-radius: 10px;
+        }
+
+        .section {
+            margin-top: 25px;
+        }
+        </style>
+    <body>
+<div class="container">
+    <h2>RAG Document Chatbot</h2>
+
+    <div class="section">
+        <h3>1. File Data Ingestion</h3>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Upload → Preprocess → Embed → Index</button>
+        </form>
+
+        {% if message %}
+            <p class="msg">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h3>2. Ask Question</h3>
+        <form action="/ask" method="post">
+            <input type="text" name="question" placeholder="Ask from uploaded document..." required>
+            <button type="submit">Semantic Search + RAG + LLM</button>
+        </form>
+    </div>
+
+    {% if answer %}
+    <div class="answer">
+        <b>Question:</b> {{ question }} <br><br>
+        <b>Answer:</b> {{ answer }}
+    </div>
+    {% endif %}
+</div>
+</body>
+</head>
+</html>
